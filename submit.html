@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submit Masters — Transplant Cuts</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="nav-link">[ &larr; HOME ]</a>
+</header>
+
+<main class="doc-content">
+  <h1>MASTER AUDIO SUBMISSION</h1>
+
+  <ul class="guidelines">
+    <li>Formats: Uncompressed 24-bit WAV or AIFF only.</li>
+    <li>Headroom: Leave -3dB to -6dB peak headroom (no heavy limiters).</li>
+    <li>Low-End: Mono sub-bass below 150Hz.</li>
+    <li>Specify Side A / Side B splits and RPM preference (33 or 45 RPM).</li>
+  </ul>
+
+  <h2>STEP 1: PROJECT DETAILS</h2>
+  <form action="https://formspree.io/f/meaojbvg" method="POST">
+    <div class="field">
+      <label for="artist">Artist / Project Name</label>
+      <input type="text" id="artist" name="artist" required>
+    </div>
+
+    <div class="field">
+      <label for="email">Contact Email</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+
+    <div class="field">
+      <label for="format">Record Format &amp; Speed</label>
+      <select id="format" name="format" required>
+        <option value="" disabled selected>Select format...</option>
+        <option value="7&quot; @ 45 RPM">7" @ 45 RPM</option>
+        <option value="7&quot; @ 33 RPM">7" @ 33 RPM</option>
+        <option value="10&quot; @ 45 RPM">10" @ 45 RPM</option>
+        <option value="10&quot; @ 33 RPM">10" @ 33 RPM</option>
+        <option value="12&quot; @ 45 RPM">12" @ 45 RPM</option>
+        <option value="12&quot; @ 33 RPM">12" @ 33 RPM</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="quantity">Quantity</label>
+      <input type="number" id="quantity" name="quantity" min="1" required>
+    </div>
+
+    <div class="field">
+      <label for="notes">Tracklist &amp; Project Notes</label>
+      <textarea id="notes" name="notes"></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn">[ SEND PROJECT DETAILS ]</button>
+  </form>
+
+  <h2>STEP 2: UPLOAD AUDIO MASTERS</h2>
+  <p class="step-note">After sending project details above, upload 24-bit WAV/AIFF master files below:</p>
+  <a href="https://www.dropbox.com/request/ro62m21bi52gna6zd2pz" class="dropbox-btn" target="_blank" rel="noopener">[ UPLOAD AUDIO MASTERS VIA DROPBOX ]</a>
+</main>
+
+<footer class="site-footer">
+  info@transplantcuts.ee | Transplant Cuts OÜ | Registrikood: 12345678 | Tallinn, Estonia
+</footer>
+
+</body>
+</html>

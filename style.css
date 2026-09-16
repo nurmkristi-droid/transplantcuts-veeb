@@ -1,0 +1,245 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #fbfbfb;
+  color: #111111;
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a {
+  color: #111111;
+  text-decoration: none;
+}
+
+/* Header */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #111111;
+}
+
+.site-header .logo-text {
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
+.site-header .nav-link {
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  border: 1px solid #111111;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+}
+
+.site-header .nav-link:hover {
+  background-color: #111111;
+  color: #fbfbfb;
+}
+
+/* Split screen */
+.split-content {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+.split-column {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+}
+
+.record-column {
+  border-right: 1px solid #111111;
+}
+
+.spinning-record {
+  width: min(320px, 60vw);
+  height: min(320px, 60vw);
+  animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.text-column p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  max-width: 32ch;
+}
+
+.text-column p + p {
+  margin-top: 1rem;
+}
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: 0.75rem;
+  color: #777777;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Submission page */
+.doc-content {
+  flex: 1;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.doc-content h1 {
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #111111;
+  padding-bottom: 0.75rem;
+}
+
+.doc-content h2 {
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  margin: 2.5rem 0 1rem;
+}
+
+.guidelines {
+  list-style: none;
+}
+
+.guidelines li {
+  padding-left: 1.2rem;
+  position: relative;
+  margin-bottom: 0.6rem;
+  line-height: 1.5;
+}
+
+.guidelines li::before {
+  content: "*";
+  position: absolute;
+  left: 0;
+}
+
+.step-note {
+  margin-bottom: 1.2rem;
+  line-height: 1.6;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field label {
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+}
+
+input,
+select,
+textarea,
+button {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  background-color: #fbfbfb;
+  color: #111111;
+  border: 1px solid #111111;
+  padding: 0.6rem 0.7rem;
+  border-radius: 0;
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: 2px solid #111111;
+  outline-offset: 1px;
+}
+
+.submit-btn {
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  width: auto;
+  align-self: flex-start;
+  padding: 0.7rem 1.4rem;
+}
+
+.submit-btn:hover {
+  background-color: #111111;
+  color: #fbfbfb;
+}
+
+.dropbox-btn {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  border: 1px solid #111111;
+  background-color: #111111;
+  color: #fbfbfb;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.dropbox-btn:hover {
+  background-color: #fbfbfb;
+  color: #111111;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .split-content {
+    flex-direction: column;
+  }
+
+  .split-column {
+    width: 100%;
+    padding: 2.5rem 1.5rem;
+  }
+
+  .record-column {
+    border-right: none;
+    border-bottom: 1px solid #111111;
+  }
+
+  .site-header {
+    padding: 1.25rem 1.25rem;
+  }
+
+  .spinning-record {
+    width: 50vw;
+    height: 50vw;
+  }
+}
