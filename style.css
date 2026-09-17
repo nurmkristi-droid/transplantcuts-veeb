@@ -121,24 +121,17 @@ a {
   margin: 2.5rem 0 1rem;
 }
 
-.guidelines {
-  list-style: none;
+#step2 {
+  margin-top: 3rem;
 }
 
-.guidelines li {
-  padding-left: 1.2rem;
-  position: relative;
-  margin-bottom: 0.6rem;
-  line-height: 1.5;
+.lede {
+  margin-bottom: 2rem;
+  line-height: 1.6;
 }
 
-.guidelines li::before {
-  content: "*";
-  position: absolute;
-  left: 0;
-}
-
-.step-note {
+.step-note,
+.step-copy {
   margin-bottom: 1.2rem;
   line-height: 1.6;
 }
@@ -199,6 +192,37 @@ button:focus {
 .submit-btn:hover {
   background-color: #111111;
   color: #fbfbfb;
+}
+
+.success-text {
+  margin-top: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.03em;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.success-text.visible {
+  opacity: 1;
+}
+
+.error-box {
+  margin-top: 1rem;
+  padding: 1rem 1.2rem;
+  font-weight: bold;
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+  background-color: #fbfbfb;
+  color: #111111;
+  border: 1px solid #111111;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.error-box.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .dropbox-btn {

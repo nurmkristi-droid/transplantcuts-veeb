@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Submit Masters — Transplant Cuts</title>
 <link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -13,17 +14,11 @@
 </header>
 
 <main class="doc-content">
-  <h1>SEND US YOUR AUDIO</h1>
+  <h1>REQUEST A CUT</h1>
+  <p class="lede">Tell us about the record. We'll get in touch.</p>
 
-  <ul class="guidelines">
-    <li>Formats: Uncompressed 24-bit WAV or AIFF only.</li>
-    <li>Headroom: Leave -3dB to -6dB peak headroom (no heavy limiters).</li>
-    <li>Low-End: Mono sub-bass below 150Hz.</li>
-    <li>Specify Side A / Side B splits and RPM preference (33 or 45 RPM).</li>
-  </ul>
-
-  <h2>STEP 1: TELL US ABOUT THE RECORD</h2>
-  <form action="https://formspree.io/f/meaojbvg" method="POST">
+  <h2>STEP 1: THE DETAILS</h2>
+  <form id="masterForm" action="https://formspree.io/f/meaojbvg" method="POST">
     <div class="field">
       <label for="artist">Artist / Project Name</label>
       <input type="text" id="artist" name="artist" required>
@@ -60,20 +55,107 @@
     <button type="submit" class="submit-btn">[ SEND DETAILS ]</button>
   </form>
 
-  <h2>STEP 2: SEND THE AUDIO</h2>
-  <p class="step-note">Once you’ve sent over the details, upload your masters here.</p>
+  <p id="form-success" class="success-text" hidden>We've got it</p>
 
-  <p>Please upload your masters as separate files for each track, in the order you want them to appear on the record. <br> <br>For a two-sided record, clearly label your files with <strong>Side A</strong> and <strong>Side B</strong> and the track number, for example:</p>
-  
-  <p> <strong>A1</strong> – Track Name<br> <strong>A2</strong> – Track Name<br> <strong>B1</strong> – Track Name<br> <strong>B2</strong> – Track Name </p> <br>
-  
-  <p>Please upload <strong>24-bit WAV or AIFF</strong> files at their native sample rate. No MP3s or other compressed formats.</p>
-  <a href="https://www.dropbox.com/request/ro62m21bi52gna6zd2pz" class="dropbox-btn" target="_blank" rel="noopener">[ UPLOAD HERE]</a>
+  <div id="form-error" class="error-box" hidden>
+    Something went wrong. Please try again, or email us directly at info@transplantcuts.ee.
+  </div>
+
+  <h2 id="step2">STEP 2: THE AUDIO (OPTIONAL)</h2>
+
+  <p class="step-copy">Upload masters as separate files, one per track, in running order.</p>
+
+  <p class="step-copy">For two-sided records label files by side and track:<br>
+  A1 – Track Name<br>
+  A2 – Track Name<br>
+  B1 – Track Name<br>
+  B2 – Track Name</p>
+
+  <p class="step-copy">Specs:<br>
+  - Uncompressed 24-bit WAV or AIFF, native sample rate. No MP3s.<br>
+  - -3dB to -6dB peak headroom. No heavy limiters.<br>
+  - Mono sub-bass below 150Hz.</p>
+
+  <a href="https://www.dropbox.com/request/ro62m21bi52gna6zd2pz" class="dropbox-btn" target="_blank" rel="noopener">[ UPLOAD HERE ]</a>
 </main>
 
 <footer class="site-footer">
   info@transplantcuts.ee | Ryno OÜ | Registrikood: 17341314 | Tallinn, Estonia
 </footer>
+
+<script>
+(function () {
+  var form = document.getElementById('masterForm');
+  var successText = document.getElementById('form-success');
+  var errorBox = document.getElementById('form-error');
+  var step2 = document.getElementById('step2');
+  var submitBtn = form.querySelector('.submit-btn');
+  var submitBtnDefaultText = submitBtn.textContent;
+
+  try {
+    if (window.emailjs) {
+      emailjs.init('eh0g8mQdQLd6NYHl3');
+    }
+  } catch (err) {}
+
+  function markSent() {
+    submitBtn.textContent = '[ SENT ✓ ]';
+    submitBtn.disabled = true;
+    Array.prototype.forEach.call(form.elements, function (el) {
+      el.disabled = true;
+    });
+
+    successText.hidden = false;
+    requestAnimationFrame(function () {
+      successText.classList.add('visible');
+    });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    errorBox.hidden = true;
+    errorBox.classList.remove('visible');
+    submitBtn.disabled = true;
+    submitBtn.textContent = '[ SENDING... ]';
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function (response) {
+      if (!response.ok) {
+        throw new Error('Submission failed.');
+      }
+
+      try {
+        if (window.emailjs) {
+          emailjs.send('service_o16yr5u', 'template_hi0yi7q', {
+            email: form.elements.email.value,
+            artist_name: form.elements.artist.value,
+            format_speed: form.elements.format.value,
+            quantity: form.elements.quantity.value,
+            tracklist_notes: form.elements.notes.value
+          }).catch(function () {});
+        }
+      } catch (err) {}
+
+      markSent();
+
+      setTimeout(function () {
+        step2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 700);
+    }).catch(function () {
+      submitBtn.disabled = false;
+      submitBtn.textContent = submitBtnDefaultText;
+      errorBox.hidden = false;
+      requestAnimationFrame(function () {
+        errorBox.classList.add('visible');
+      });
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
